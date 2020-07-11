@@ -11,6 +11,10 @@ import java.util.Optional;
 
 public interface TaskRepository {
 
+    //public boolean existsByDoneIsFalse(Integer groupId);
+
+    //Task findTaskByID(Integer id);
+
     List<Task> findAll();
     Page<Task> findAll(Pageable page);
 
@@ -21,7 +25,8 @@ public interface TaskRepository {
     boolean existsById(Integer id);
 
 
-    //boolean existsByDoneIsFalseAndGroup_Id(Integer groupId);
+    boolean existsByDoneIsFalseAndTasks_Group_ID(Integer groupId);
+
 
 
     List<Task> findByDone(@Param("state") boolean done);

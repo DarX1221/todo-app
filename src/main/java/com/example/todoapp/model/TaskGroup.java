@@ -13,9 +13,17 @@ public class TaskGroup {
     @NotBlank(message = "Task group's description must be not null")
     private String description;
     private boolean done;
-    //@Transient
+
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "taskGroup")
     Set<Task> tasks;
+/*
+    @ManyToOne
+    @JoinColumn(name = "project_id")
+    private Project project;
+
+*/
+
+
 
     //@Embedded
     //Audit audit= new Audit();

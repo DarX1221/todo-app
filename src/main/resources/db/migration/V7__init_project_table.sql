@@ -1,30 +1,3 @@
-package com.example.todoapp.model;
-
-
-import javax.persistence.*;
-import java.time.LocalDateTime;
-
-
-//@Embeddable
-@MappedSuperclass
-public class Audit {
-    private LocalDateTime createdOn;
-    private LocalDateTime updatedOn;
-
-    @PrePersist
-    void prePersist(){
-        createdOn = LocalDateTime.now();
-    }
-
-    @PreUpdate
-    void preMerge() {
-        updatedOn = LocalDateTime.now();
-    }
-}
-
-
-/*
-sql
 create table projects
 (
     id int primary key auto_increment,
@@ -41,5 +14,3 @@ create table project_steps
 alter table tasks_groups add column project_id int null;
 alter table tasks_groups add
     foreign key (project_id) references projects (id);
-
- */

@@ -2,22 +2,19 @@ package com.example.todoapp.model;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
-import java.time.LocalDateTime;
-import java.util.List;
-import java.util.Set;
 
 @Entity
-@Table(name = "projects")
-public class Project {
+@Table(name = "project_steps")
+public class ProjectStep {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
-    @NotBlank(message = "Project's descripton can't be empty!")
+    @NotBlank(message = "Project Step's descriprion can't be empty!")
     private String description;
-
-    @OneToMany
+    private int daysToDeadline;
+    @ManyToOne
     @JoinColumn(name = "project_id")
-    private Set<TaskGroup> grups;
+    private Project project;
 
 
     public int getId() {
@@ -36,11 +33,19 @@ public class Project {
         this.description = description;
     }
 
-    public Set<TaskGroup> getGrups() {
-        return grups;
+    public int getDaysToDeadline() {
+        return daysToDeadline;
     }
 
-    public void setGrups(final Set<TaskGroup> grups) {
-        this.grups = grups;
+    void setDaysToDeadline(int daysToDeadline) {
+        this.daysToDeadline = daysToDeadline;
+    }
+
+    public Project getProject() {
+        return project;
+    }
+
+    void setProject(final Project project) {
+        this.project = project;
     }
 }
