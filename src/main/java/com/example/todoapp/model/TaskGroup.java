@@ -15,13 +15,13 @@ public class TaskGroup {
     private boolean done;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "taskGroup")
-    Set<Task> tasks;
-/*
+    private Set<Task> tasks;
+
     @ManyToOne
     @JoinColumn(name = "project_id")
     private Project project;
 
-*/
+
 
 
 

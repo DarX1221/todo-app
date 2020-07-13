@@ -15,9 +15,11 @@ public class Project {
     @NotBlank(message = "Project's descripton can't be empty!")
     private String description;
 
-    @OneToMany
-    @JoinColumn(name = "project_id")
-    private Set<TaskGroup> grups;
+    @OneToMany(mappedBy = "project")
+    private Set<TaskGroup> groups;
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "project")
+    private Set<ProjectStep> steps;
 
 
     public int getId() {
@@ -37,10 +39,18 @@ public class Project {
     }
 
     public Set<TaskGroup> getGrups() {
-        return grups;
+        return groups;
     }
 
     public void setGrups(final Set<TaskGroup> grups) {
-        this.grups = grups;
+        this.groups = grups;
+    }
+
+    public Set<ProjectStep> getSteps() {
+        return steps;
+    }
+
+    public void setSteps(Set<ProjectStep> steps) {
+        this.steps = steps;
     }
 }

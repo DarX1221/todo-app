@@ -10,4 +10,6 @@ public interface TaskGroupRepository {
     Optional<TaskGroup> findById(Integer id);
 
     TaskGroup save(TaskGroup taskGroupToSave);
+
+    boolean existsByDoneIsFalseAndTasks_Group_ID(Integer groupId);
 }
