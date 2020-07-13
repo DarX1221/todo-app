@@ -3,6 +3,8 @@ package com.example.todoapp.logic;
 import com.example.todoapp.TaskConfigurationProperties;
 import com.example.todoapp.model.ProjectRepository;
 import com.example.todoapp.model.TaskGroupRepository;
+import com.example.todoapp.model.TaskRepository;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -16,4 +18,12 @@ public class LogicConfiguration {
             TaskConfigurationProperties taskConfigurationProperties) {
         return new ProjectService(projectRepository, taskGroupRepository, taskConfigurationProperties);
     }
+
+    @Bean
+    TaskGroupService taskGroupService(
+            TaskGroupRepository repository,
+            @Qualifier("sqlTaskRepository") TaskRepository taskRepository ) {
+        return new TaskGroupService(repository, taskRepository);
+    }
+
 }

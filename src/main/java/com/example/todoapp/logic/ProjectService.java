@@ -14,11 +14,16 @@ public class ProjectService {
     private ProjectRepository repository;
     private TaskGroupRepository taskGroupRepository;
     private TaskConfigurationProperties config;
+    private ProjectService projectService;
 
-    public ProjectService(ProjectRepository repository, TaskGroupRepository taskGroupRepository, TaskConfigurationProperties config) {
+    public ProjectService(ProjectRepository repository,
+                          TaskGroupRepository taskGroupRepository,
+                          TaskConfigurationProperties config,
+                          ProjectService projectService) {
         this.repository = repository;
         this.taskGroupRepository = taskGroupRepository;
         this.config = config;
+        this.projectService = projectService;
     }
 
 
