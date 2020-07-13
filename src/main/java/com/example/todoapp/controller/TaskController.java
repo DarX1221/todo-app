@@ -4,6 +4,8 @@ import com.example.todoapp.model.Task;
 import com.example.todoapp.model.TaskRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.data.domain.Pageable;
 
 import org.springframework.http.ResponseEntity;
@@ -21,7 +23,8 @@ public class TaskController {
     public static final Logger logger = LoggerFactory.getLogger(TaskController.class);
     private final TaskRepository taskRepository;
 
-    public TaskController(final TaskRepository taskRepository) {
+    //public TaskController(@Qualifier("sqlTaskRepository") final TaskRepository taskRepository) {
+    public TaskController(@Lazy final TaskRepository taskRepository) {
         this.taskRepository = taskRepository;
     }
 
