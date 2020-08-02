@@ -1,5 +1,6 @@
 package com.example.todoapp.model.projection;
 
+import com.example.todoapp.model.Project;
 import com.example.todoapp.model.TaskGroup;
 
 import java.util.Set;
@@ -10,9 +11,12 @@ public class GroupWriteModel {
     private Set<GroupTaskWriteModel> tasks;
 
     public GroupWriteModel() {
-
     }
 
+    public GroupWriteModel(String description, Set<GroupTaskWriteModel> tasks) {
+        this.description = description;
+        this.tasks = tasks;
+    }
 
     public String getDescription() {
         return description;
@@ -30,7 +34,7 @@ public class GroupWriteModel {
         this.tasks = tasks;
     }
 
-    public TaskGroup toGroup() {
+    public TaskGroup toGroup(final Project project) {
         TaskGroup taskGroup = new TaskGroup();
         taskGroup.setDescription(description);
         taskGroup.setTasks(

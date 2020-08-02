@@ -27,7 +27,7 @@ class ProjectServiceTest {
 
             TaskConfigurationProperties mockConfig = configurationReturning(false);
 
-            ProjectService toTest = new ProjectService(null, mockGroupRepository, mockConfig);
+            ProjectService toTest = new ProjectService(null, mockGroupRepository, null, mockConfig);
             //when      //then
 
             Throwable exception = catchThrowable(() -> toTest.createGroup(LocalDateTime.now(), 0));
@@ -60,7 +60,7 @@ class ProjectServiceTest {
 
         TaskConfigurationProperties mockConfig = configurationReturning(true);
 
-        ProjectService toTest = new ProjectService(mockRepository, null, mockConfig);
+        ProjectService toTest = new ProjectService(mockRepository, null, null, mockConfig);
         //when
         //then
 
@@ -85,7 +85,7 @@ class ProjectServiceTest {
 
         TaskConfigurationProperties mockConfig = configurationReturning(false);
 
-        ProjectService toTest = new ProjectService(mockRepository, mockGroupRepository, mockConfig);
+        ProjectService toTest = new ProjectService(mockRepository, mockGroupRepository, null, mockConfig);
         //when
         //then
 

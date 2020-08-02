@@ -1,15 +1,15 @@
 package com.example.todoapp.logic;
 
-import com.example.todoapp.model.Task;
-import com.example.todoapp.model.TaskGroup;
-import com.example.todoapp.model.TaskGroupRepository;
-import com.example.todoapp.model.TaskRepository;
+import com.example.todoapp.model.*;
 import com.example.todoapp.model.projection.GroupReadModel;
 import com.example.todoapp.model.projection.GroupWriteModel;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 
@@ -23,7 +23,11 @@ public class TaskGroupService {
     }
 
     public GroupReadModel createGroup(GroupWriteModel source) {
-        TaskGroup taskGroup = repository.save(source.toGroup());
+        return createGroup(source, null);
+    }
+
+    public GroupReadModel createGroup(GroupWriteModel source, Project project) {
+        TaskGroup taskGroup = repository.save(source.toGroup(project));
         return new GroupReadModel(taskGroup);
     }
 
@@ -33,15 +37,21 @@ public class TaskGroupService {
                 .collect(Collectors.toList());
     }
 
-    public void toggleGroup(int groupId) {
-        if(taskRepository.existsByDoneIsFalseAndTasks_Group_ID(groupId)) {
+
+    public void toggleGroup(int groupId) throws IllegalStateException, IllegalArgumentException, NullPointerException {
+        if(repository.findById(groupId).equals(Optional.empty())){
+            throw new IllegalArgumentException("Task group does'n exist!!!");
+        }
+        if (!taskRepository.existsByDoneIsFalseAndTasks_Group_ID(groupId)) {
             throw new IllegalStateException("Group has undone tasks!");
         }
-        TaskGroup result = repository.findById(groupId).orElseThrow(
-                () -> new IllegalStateException("Task group does'n exist!"));
+        TaskGroup result = repository.findById(groupId)
+                .orElseThrow(() -> new IllegalArgumentException("Task group does'n exist!"));   // this excption is useless
         result.setDone(!result.isDone());
-        throw new IllegalStateException("Implement existsByDoneIsFalseAndTasks_Group_ID method in SqlTaskRepositroy!!!");
+        //
+        //throw new IllegalStateException("Implement existsByDoneIsFalseAndTasks_Group_ID method in SqlTaskRepositroy!!!");
     }
+
 
 
     /*

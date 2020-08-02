@@ -11,5 +11,11 @@ spring:
     database-platform: 'org.hibernate.dialect.H2Dialect'
     hibernate:
       ddl-auto: validate
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+
 
 
