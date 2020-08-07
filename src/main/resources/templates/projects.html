@@ -5,9 +5,34 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://igoradamenko/awsm.css/master/dist/awsm.min.css">
     <title>Todo App</title>
+    <style>
+        .Bd {
+            border: solid 1px black;
+        }
+
+        .P\(0\) {
+            pading : 0;
+        }
+
+        .P\(10px\) {
+            pading : 10px;
+        }
+
+    </style>
 </head>
 <body>
 <main>
+    <!--/*@thymesVar id="message" type="java.lang.String"*/-->
+    <h1 th:if="${message != null}" th:text="${message}"></h1>
+    <!--/*@thymesVar id="projects" type="java.util.List<com.example.todoapp.model.Project>"*/-->
+    <dl th:each="project : ${projects}" class="Bd P(10px)">
+        <dt th:text="${project.description}">...</dt>
+        <dd>
+            <ul class="P(0)">
+                <li th:each="step : ${project.steps}" th:text="|${step.description} (${step.daysToDeadline} dni)|"></li>
+            </ul>
+        </dd>
+    </dl>
     <!--/*@thymesVar id="project" type="com.example.todoapp.model.projection.ProjectWriteModel"*/-->
     <form action="#" method="post" th:action="@{/projects}" th:object="${project}" />
     <fieldset>
@@ -21,7 +46,7 @@
                 <input type="text" th:field="${project.steps[__${stepStat.index}__].description}"/>
             </label>
             <label>Dni do końca
-                <input type="number" th:field="${project.steps[__${stepStat.index}__].description}"/>
+                <input type="number" th:field="${project.steps[__${stepStat.index}__].daysToDeadline}"/>
             </label>
         </fieldset>
         <div>

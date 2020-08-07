@@ -9,19 +9,21 @@ public class ProjectStep {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
-    @NotBlank(message = "Project Step's descriprion can't be empty!")
+    //@NotBlank(message = "Project Step's descriprion can't be empty!")
     private String description;
-    private int daysToDeadline;
+    public int daysToDeadline;
     @ManyToOne
     @JoinColumn(name = "project_id")
     private Project project;
 
+    public ProjectStep() {
+    }
 
     public int getId() {
         return id;
     }
 
-    void setId(int id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -37,7 +39,7 @@ public class ProjectStep {
         return daysToDeadline;
     }
 
-    void setDaysToDeadline(int daysToDeadline) {
+    public void setDaysToDeadline(int daysToDeadline) {
         this.daysToDeadline = daysToDeadline;
     }
 
@@ -45,7 +47,7 @@ public class ProjectStep {
         return project;
     }
 
-    public void setProject(final Project project) {
+    public void setProject(Project project) {
         this.project = project;
     }
 }

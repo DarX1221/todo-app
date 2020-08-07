@@ -1,5 +1,7 @@
 package com.example.todoapp.model;
 
+import com.example.todoapp.model.projection.ProjectWriteModel;
+
 import java.util.List;
 import java.util.Optional;
 
@@ -10,4 +12,5 @@ public interface ProjectRepository {
     Optional<Project> findById(Integer id);
 
     Project save(Project project);
+    //Project save(ProjectWriteModel project);
 }

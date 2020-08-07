@@ -13,10 +13,10 @@ public class ProjectWriteModel {
     @NotBlank(message = "description can't be empty")
     private String description;
     @Valid
-    private List<ProjectStep> steps = new ArrayList<>();
+    private final List<ProjectStep> steps = new ArrayList<>();
 
 
-    public ProjectWriteModel() {
+    public ProjectWriteModel()  {
         steps.add(new ProjectStep());
     }
 
@@ -32,15 +32,14 @@ public class ProjectWriteModel {
         return steps;
     }
 
-    public void setSteps(List<ProjectStep> steps) {
-        this.steps = steps;
-    }
 
-    Project toProject() {
+    public Project toProject() {
         Project project = new Project();
         project.setDescription(description);
         steps.forEach(step -> step.setProject(project));
         project.setSteps(new HashSet<>(steps));
         return project;
     }
+
+
 }

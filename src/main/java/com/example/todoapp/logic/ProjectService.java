@@ -1,14 +1,18 @@
 package com.example.todoapp.logic;
 
 import com.example.todoapp.TaskConfigurationProperties;
+import com.example.todoapp.adapter.SqlProjectRepository;
 import com.example.todoapp.model.*;
 import com.example.todoapp.model.projection.GroupReadModel;
 import com.example.todoapp.model.projection.GroupTaskWriteModel;
 import com.example.todoapp.model.projection.GroupWriteModel;
+import com.example.todoapp.model.projection.ProjectWriteModel;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 
@@ -18,8 +22,9 @@ public class ProjectService {
     private TaskGroupService taskGroupService;
     private TaskConfigurationProperties config;
 
-    public ProjectService(ProjectRepository repository,
-                          TaskGroupRepository taskGroupRepository,
+
+    public ProjectService(final ProjectRepository repository,
+                          final TaskGroupRepository taskGroupRepository,
                           TaskGroupService taskGroupService,
                           TaskConfigurationProperties config) {
         this.repository = repository;
@@ -30,11 +35,26 @@ public class ProjectService {
 
 
     public List<Project> readAll() {
-        return repository.findAll();
-    }
+        List<Project> list = repository.findAll();
+        list.forEach(project -> System.out.println(project.getId() + ":  " + project.description));
+        return list;
 
+
+
+        // testing return repository.findAll();
+    }
+/*
     public Project save(Project projectToSave) {
         return repository.save(projectToSave);
+    }*/
+    public Project save(ProjectWriteModel projectToSave) {
+        Project project = projectToSave.toProject();
+        System.out.println("description:" + project.description);
+        System.out.println("Id:" + project.getId());
+        System.out.println("Steps:" + project.getSteps());
+        Set<ProjectStep> steps = project.getSteps();
+        steps.forEach(projectStep -> System.out.println(projectStep.getDescription()));
+        return repository.save(project);
     }
 
     public GroupReadModel createGroup(LocalDateTime deadline, int projectId) throws Exception {

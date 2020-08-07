@@ -41,6 +41,7 @@ public class GroupWriteModel {
                 tasks.stream()
                 .map(source -> source.toTask(taskGroup))
                 .collect(Collectors.toSet()));
+        taskGroup.setProject(project);
         return taskGroup;
     }
 }

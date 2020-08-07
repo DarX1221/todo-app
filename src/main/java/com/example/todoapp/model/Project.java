@@ -13,7 +13,7 @@ public class Project {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
     @NotBlank(message = "Project's descripton can't be empty!")
-    private String description;
+    public String description;
 
     @OneToMany(mappedBy = "project")
     private Set<TaskGroup> groups;
@@ -21,12 +21,14 @@ public class Project {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "project")
     private Set<ProjectStep> steps;
 
+    public Project() {
+    }
 
     public int getId() {
         return id;
     }
 
-    void setId(int id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -47,10 +49,22 @@ public class Project {
     }
 
     public Set<ProjectStep> getSteps() {
+        System.out.println("--- wywolano getSteps()");
         return steps;
     }
 
-    public void setSteps(Set<ProjectStep> steps) {
+    public void setSteps(final Set<ProjectStep> steps) {
+        System.out.println("--- wywolano setSteps()");
         this.steps = steps;
     }
+
+
+
+    //      Test
+    public static void main(String[] args) {
+
+    }
 }
+
+
+//      <dl th:each="project : ${projects}" class="Bd P(10px)">
